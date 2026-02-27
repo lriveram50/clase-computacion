@@ -1,4 +1,72 @@
-const db = {
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cómputo - Santa Ana</title>
+    <style>
+        :root { --fe-color: #f44336; --es-color: #4caf50; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 100%; max-width: 500px; text-align: center; border-top: 10px solid #ccc; transition: 0.4s; }
+        .info-box { background: #f1f8e9; border: 1px dashed #7cb342; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; font-size: 14px; }
+        .sieweb-box { background: #e3f2fd; border-color: #2196f3; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-app { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; }
+        .canva { background: #00c4cc; } .office { background: #eb3c00; } .sieweb-btn { background: #1a237e; grid-column: span 2; }
+        .hidden { display: none; }
+        .tema-fe { border-top-color: var(--fe-color); }
+        .tema-es { border-top-color: var(--es-color); }
+        select { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; margin-bottom: 20px; font-size: 16px; outline: none; }
+        .btn-main { background: #1a73e8; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; font-size: 18px; }
+        b { color: #d32f2f; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="step1">
+        <h1>🏫 Santa Ana</h1>
+        <p style="color:#666; font-size:14px;">Portal de Computación 2026</p>
+        <select id="selectSeccion" onchange="actualizarLista()">
+            <option value="">-- Elige tu Grado y Sección --</option>
+            <option value="P1FE">1ero FE 🌸</option>
+            <option value="P1ES">1ero ESPERANZA 🌿</option>
+            <option value="P2FE">2do FE 🌸</option>
+            <option value="P2ES">2do ESPERANZA 🌿</option>
+            <option value="P3FE">3ero FE 🌸</option>
+            <option value="P3ES">3ero ESPERANZA 🌿</option>
+        </select>
+        <div id="divNombres" class="hidden">
+            <select id="listaNombres"></select>
+            <button class="btn-main" onclick="entrar()">¡Ingresar ahora! 🚀</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="step2">
+        <h2 id="saludo"></h2>
+        <div class="info-box">
+            <center><b>💻 CUENTAS DE TRABAJO</b></center><hr>
+            Correo Office/Canva: <b id="txtCorreo"></b><br>
+            Clave Office/Canva: <b>SantaAna2026*</b>
+        </div>
+        <div class="info-box sieweb-box">
+            <center><b style="color:#0d47a1;">📂 MI SIEWEB (Notas y Tareas)</b></center><hr>
+            Usuario Sieweb: <b id="txtUserSie"></b><br>
+            Clave Sieweb: <b id="txtPassSie"></b>
+        </div>
+        <div class="grid">
+            <button class="btn-app canva" onclick="irACanva()">🎨 CANVA</button>
+            <button class="btn-app office" onclick="window.open('https://portal.office.com', '_blank')">📝 OFFICE</button>
+            <button class="btn-app sieweb-btn" onclick="window.open('https://santaanacusco.sieweb.com.pe/', '_blank')">🌐 ENTRAR A SIEWEB</button>
+        </div>
+        <br>
+        <button onclick="location.reload()" style="background:none; border:none; color:gray; cursor:pointer;">⬅️ Volver</button>
+    </div>
+
+<script>
+    // La base de datos se encuentra en los bloques que envié anteriormente.
+    // Asegúrate de pegar aquí todo el contenido de 'const db = { ... };' 
+    // que incluye a las 240 alumnas con sus campos 'n', 'u' y 'p'.
+    const db = {
         "P1FE": { 
             n: "1ero FE", pref: "p1fe", 
             canva: "https://www.canva.com/brand/join?token=Dm9LDtePsVQRFhkqm7U8sQ&brandingVariant=edu&invitationDestinationType=group", 
@@ -247,3 +315,56 @@ const db = {
             ]
         }
     };
+
+    function actualizarLista() {
+        const val = document.getElementById('selectSeccion').value;
+        const div = document.getElementById('divNombres');
+        const lista = document.getElementById('listaNombres');
+        const card = document.getElementById('step1');
+        if (val) {
+            div.classList.remove('hidden');
+            lista.innerHTML = '<option value="">-- Busca tu nombre --</option>';
+            db[val].alumnas.forEach((est, index) => {
+                let opt = document.createElement('option');
+                opt.value = index;
+                opt.innerText = est.n;
+                lista.appendChild(opt);
+            });
+            card.className = "card " + db[val].tema;
+        }
+    }
+
+    function entrar() {
+        const seccion = document.getElementById('selectSeccion').value;
+        const idx = document.getElementById('listaNombres').value;
+        if (idx === "") return alert("Por favor, selecciona tu nombre.");
+
+        const est = db[seccion].alumnas[idx];
+        
+        // --- SEGURIDAD INDIVIDUAL ---
+        // Usamos el campo 'p' (Contraseña de Sieweb del Excel) para validar
+        const claveIngresada = prompt("Hola " + est.n.split(',')[1].trim() + ", ingresa tu contraseña personal de Sieweb:");
+
+        if (claveIngresada === est.p) {
+            const numEst = (parseInt(idx) + 1).toString().padStart(2, '0');
+            const soloNombre = est.n.split(',')[1].trim().split(' ')[0];
+            
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('step2').className = "card " + db[seccion].tema;
+
+            document.getElementById('saludo').innerText = "¡Hola, " + soloNombre + "! ✨";
+            document.getElementById('txtCorreo').innerText = db[seccion].pref + numEst + "@staana.edu.pe";
+            document.getElementById('txtUserSie').innerText = est.u;
+            document.getElementById('txtPassSie').innerText = est.p;
+        } else if (claveIngresada !== null) {
+            alert("❌ Contraseña incorrecta. Inténtalo de nuevo o pide ayuda al Profe Luchito.");
+        }
+    }
+
+    function irACanva() {
+        window.open(db[document.getElementById('selectSeccion').value].canva, '_blank');
+    }
+</script>
+</body>
+</html>
