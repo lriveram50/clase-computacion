@@ -6,29 +6,27 @@
     <title>Portal Cómputo - Santa Ana</title>
     <style>
         :root { --fe-color: #f44336; --es-color: #4caf50; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 90%; max-width: 500px; text-align: center; border-top: 10px solid #ccc; transition: 0.3s; }
-        h1 { color: #333; margin-bottom: 10px; }
-        .sub { color: #666; font-size: 14px; margin-bottom: 20px; }
-        select { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; margin-bottom: 20px; outline: none; }
-        .btn { background: #1a73e8; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 18px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn-app { padding: 20px; border-radius: 15px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .canva { background: #00c4cc; } .office { background: #eb3c00; }
-        .info-box { background: #fffde7; border: 1px dashed #fbc02d; padding: 15px; border-radius: 10px; margin-top: 20px; color: #5d4037; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 100%; max-width: 500px; text-align: center; border-top: 10px solid #ccc; transition: 0.4s; }
+        .info-box { background: #f1f8e9; border: 1px dashed #7cb342; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; font-size: 14px; }
+        .sieweb-box { background: #e3f2fd; border-color: #2196f3; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-app { padding: 15px; border-radius: 12px; border: none; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .canva { background: #00c4cc; } .office { background: #eb3c00; } .sieweb-btn { background: #1a237e; grid-column: span 2; }
         .hidden { display: none; }
         .tema-fe { border-top-color: var(--fe-color); }
         .tema-es { border-top-color: var(--es-color); }
+        select { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; margin-bottom: 20px; font-size: 16px; }
+        .btn-main { background: #1a73e8; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="card" id="step1">
         <h1>🏫 Santa Ana</h1>
-        <p class="sub">Portal de Computación 2026</p>
-        <p>Selecciona tu Grado y Sección:</p>
+        <p>Portal de Computación 2026</p>
         <select id="selectSeccion" onchange="actualizarLista()">
-            <option value="">-- Elige aquí --</option>
+            <option value="">-- Selecciona Grado y Sección --</option>
             <option value="P1FE">1ero FE 🌸</option>
             <option value="P1ES">1ero ESPERANZA 🌿</option>
             <option value="P2FE">2do FE 🌸</option>
@@ -36,37 +34,282 @@
             <option value="P3FE">3ero FE 🌸</option>
             <option value="P3ES">3ero ESPERANZA 🌿</option>
         </select>
-        
         <div id="divNombres" class="hidden">
-            <p>Busca tu nombre:</p>
             <select id="listaNombres"></select>
-            <button class="btn" onclick="entrar()">¡Entrar a Clase! 🚀</button>
+            <button class="btn-main" onclick="entrar()">¡Ingresar ahora! 🚀</button>
         </div>
     </div>
 
     <div class="card hidden" id="step2">
         <h2 id="saludo"></h2>
         <div class="info-box">
-            <p id="txtCorreo"></p>
-            <p>Contraseña: <b>SantaAna2026*</b></p>
+            <center><b>💻 CUENTAS DE TRABAJO</b></center><hr>
+            Correo Office/Canva: <b id="txtCorreo"></b><br>
+            Clave Office/Canva: <b>SantaAna2026*</b>
         </div>
-        
+        <div class="info-box sieweb-box">
+            <center><b style="color:#0d47a1;">📂 MI SIEWEB (Notas y Tareas)</b></center><hr>
+            Usuario Sieweb: <b id="txtUserSie"></b><br>
+            Clave Sieweb: <b id="txtPassSie"></b>
+        </div>
         <div class="grid">
             <button class="btn-app canva" onclick="irACanva()">🎨 CANVA</button>
             <button class="btn-app office" onclick="window.open('https://portal.office.com', '_blank')">📝 OFFICE</button>
+            <button class="btn-app sieweb-btn" onclick="window.open('https://santaanacusco.sieweb.com.pe/', '_blank')">🌐 ENTRAR A SIEWEB</button>
         </div>
         <br>
-        <button onclick="location.reload()" style="background:none; border:none; color:gray; cursor:pointer;">Cerrar sesión 🔒</button>
+        <button onclick="location.reload()" style="background:none; border:none; color:gray; cursor:pointer;">⬅️ Volver</button>
     </div>
 
 <script>
     const db = {
-        "P1FE": { n: "1ero FE", pref: "p1fe", canva: "https://www.canva.com/brand/join?token=Dm9LDtePsVQRFhkqm7U8sQ&brandingVariant=edu&invitationDestinationType=group", tema: "tema-fe", alumnas: ["ALVAREZ CHISE, SCARLETT ANTHONELA", "ANCHARI DELGADO, ADHARA AITANA", "ARAUJO HUACAC, ANTONELLA", "ARIAS OCAMPO, MARJORIE GIANELLA", "ATAUSUPA CHANCA, ALONDRA YOCIRI", "BELLIDO FERNANDEZ, ARIANNA SOFIA", "CACERES CENTENO, VALENTINA VERÓNICA", "CANDIA GUZMAN, RAFAELA THAIS", "CCACYAHUILLCA CÁCERES, SAMI ALHELÍ", "CRUZ OJEDA, ALESSIA ISABELA", "CUENTAS QUISPE, ALMENDRA KAMEL", "DELGADO PARO, ALEJANDRA IVANA", "FERNÁNDEZ BACA PAREJA, MICAELA CONSTANZA", "FLORES CCOPA, FATIMA VALERIA", "GAMARRA REGAÑO, SOPHIE ANGELINE", "GERVASI RODRIGUEZ, ALEJANDRA MICAELA", "HERMOZA REYNOSO, BRIANNA ANTONELLA", "HUARAYA CASTAÑEDA, DAYRA", "LOAIZA QUISPE, RAFAELLA VICTORIA", "MONTES MEJIA, NAYETH GALENA", "NUÑEZ SAENZ, SOFIA", "NUÑEZ VALERIANO, GEORGINA FABIANA", "OBLITAS MIRANDA, CAMILA LUANA", "OBLITAS PALOMINO, ALANNA ISABELLA", "PALMA GUTIERREZ, AMANDA SYLVANA", "PINTO PONCE DE LEON, VALENTINA", "QUISPE CARDENAS, ZOE ALEJANDRA", "SALAS JARA, ISABELLA ARIA", "SORIA FERRO, ISABELLA", "SUAQUITA DEL CARPIO, DANIELA ALESSANDRA", "VALDIVIA PINARES, LUCIANA CAROLINA", "VIGNATTI LOAIZA, ANA BELÈN", "VILLAVICENCIO HURTADO, JADE JAZMÍN", "YUPANQUI URBINA, DANIELA"] },
-        "P1ES": { n: "1ero ESPERANZA", pref: "p1es", canva: "https://www.canva.com/brand/join?token=OfygR2er5-2Sl1z-k4AFnQ&brandingVariant=edu&invitationDestinationType=group", tema: "tema-es", alumnas: ["ACUÑA TORRES, RAFAELLA MICKELA", "ANCORI SILVA, ORIANA CATALINA", "ARAGON GRAJEDA, LIA PADME", "BAZALAR HUAMAN, SOFIA VALENTINA", "CABALLERO COAYLA, ALESSANDRA AVRIL", "CALATAYUD CORNEJO, MHIA RAPHAELLA", "CAMPANA BAUTISTA, AMELIA ANTONIA", "CAPCHA BALLON, GAELA FERNANDA", "CASAPINO BENAVENTE, ANTONIA LETICIA", "CHOQUEHUANCA HUAMAN, MICAELA NIEVES", "CONDORI REJAS, XIMENA GERALDINE", "CONZA MIRANDA, VALENTINA ITZA", "CORTEZ SALAZAR, JEIZA SAHORI", "CRUZ CABALLERO, EMILIA", "ESCOBAR TELLO, EMILIA LUANA", "FARFAN CASTILLA, KATHERINE SOFIA ALESSANDRA", "FERRO SALAS, SOPHIA VALENTINA", "FIGUEROA VELASCO, MIA ANTHONELLA", "FLOREZ BEGAZO, STEPHANIE JIMENA", "GONZALES CUBA, MICAELA ALESSANDRA", "GOVEA CUBA, EMILIA CATALINA", "GUTIERREZ TACO, KYRA EILEEN", "LOVATON MONTOYA, CAYETANA ISABELLA", "LOZANO ZAMBRANO, ISIS FRANCESCA", "MAYORGA QUISPE, ALESSIA SARA", "MESCCO SONCCO, ARIANA ITZEL", "NOBLEGA CONDOR, CAMILA MASSIEL", "PUENTE DE LA VEGA CARREÑO, IVANA GABRIELA", "QUINTANA NUÑEZ DE LA TORRE, LUCIA IVETTE", "QUISPE BEJAR, DAYANA ROSA LAURA", "SILVESTRE VILLALBA, VANIA ANGHELY", "SOTA ESTRADA, ALESSIA", "SOTO AUCCAHUAQUI, LUANA VALERIA", "VILCA GUTIERREZ, ANDREA KHALEESI", "VILLACORTA QUISPE, EVERLY GIULIA ZOE"] },
-        "P2FE": { n: "2do FE", pref: "p2fe", canva: "https://www.canva.com/brand/join?token=Kl1_TQY4ZLqggqwvOgX7Kg&brandingVariant=edu&invitationDestinationType=group", tema: "tema-fe", alumnas: ["ALVAREZ ZAMALLOA, ALESSIA AITANA", "BANDA HUAYPAR, VICTORIA AMELIA", "BERRIO PRIETO, LUCIA VALERIA", "BOLIVAR PANTOJA, LAURA MARCELA", "BUSTAMANTE QUINTE, ANGIE MASSIEL", "CARPIO CARPIO, SOFIA VALENTINA", "CHAVEZ CORTEZ, ANGHELY ROSANNA", "CONTRERAS BUSTINZA, MARZHIA VALENTINA", "DUEÑAS QUINTANILLA, ZOE FERNANDA", "FERNÁNDEZ BACA PAREJA, GIULIA VICTORIA", "FIGUEROA ALMANZA, LEYRA LUCÍA", "GALLEGOS CUSIHUALLPA, AITANA KHALEESI", "GUILLEN MOYA, ISABELLA BLANCA", "GUILLEN PALOMARES, FLAVIA RAFAELA", "HUILLCA CAPCHA, BRYANNA YANIRA", "JORDAN ALENCASTRE, CATALINA MAGDIEL", "JORDAN PUMA, RAFAELA", "LUZA ASCUE, GRACIA PAZ", "MOLINA DUEÑAS, GAIA VALESKA", "MORON ARAGON, LUISA CATALINA", "MUJICA GRANADA, VANIA VALENTINA", "OJEDA VARGAS, CATHALEYA ALEXIA", "ORTIZ GARCIA, ARELI", "PALIZA ORTIZ DE ORUE, JHOSELIM VALENTINA", "PEREZ VALDERRAMA, LIA LUCIANA", "QUIÑONES VARGAS, ANTONELA", "ROMERO MALDONADO, CAMILA VALENTINA", "RUELAS CCAHUA, CARMEN ISABELLA", "SANCHEZ PACHECO, ANA LUCÍA", "SOTTEC SUTTA, CAMILA ALESSANDRA", "TORRES MERMA, MAYTE CATALINA", "VARGAS OBLITAS, MÍA RAFAELA", "VARGAS VARGAS, LUCIANA MICAELA"] },
-        "P2ES": { n: "2do ESPERANZA", pref: "p2es", canva: "https://www.canva.com/brand/join?token=2zjKNkpEL2BvxKBsYPVzqA&brandingVariant=edu&invitationDestinationType=group", tema: "tema-es", alumnas: ["ACUÑA ROZAS, ZHOE MIKAELA", "ALVARADO GOMEZ, MICAELA LUCIANA", "ASTETE RODRIGUEZ, MILAGROS ANTONELLA", "ATAYUPANQUI COLOMA, LUANA", "BENAVIDES VALERO, SOPHIE CATALINA", "BERRIO CONTRERAS, MARIA ALEJANDRA", "CABRERA DELGADO, FLAVIA ANTONELLA", "CARRILLO BAZALAR, PARIS ALEJANDRA", "CCONOCHUILCA ANCHARI, ALMENDRA KHALEESY", "ESPINOZA VILCHEZ, NADEZDA EMILIA", "FARFÁN BACA, ALEXIA GUADALUPE", "FUENTES LOPEZ, ZOE ALESSANDRA", "GAMARRA REGAÑO, ALESSIA JOHANA", "GAMEZ PASTOR, MARIAVICTORIA", "GUTIERREZ PILARES, SOPHIE LUCIANA", "LUNA ROJAS, FLOR VALENTINA", "MEZA JARA, CAMILA ANTONELLA", "MEZA QUISPITUPA, MARIA FERNANDA", "MORENO DURAND, ADRIANA CAMILA", "OCHOA FARFAN, GIA LIBERTAD", "OLIVERA MIRANDA, DANNA DOMEΝΙΚΑ", "PALACIO HERMOZA, LUCIANA DEL CARMEN", "PEÑA TINCO, MAZIEL ALESSANDRA", "PUELLES ROJAS, ROSA EMILIA", "QUISPE MAYTA, PAULA ADRIANA", "QUISPE URQUIZO, BRYANNA KHALEESY", "ROZAS OCHOA, ARIANA ISABELLA", "SALAZAR PAULLO, ALLISON AITANA", "SUMAR SALAS, SALMA", "TAPIA QUISPE, MIA SOFIA MARCELA", "TUPAYACHI PEÑA, CAYETAΝΑ", "VICTORIA ESPINOZA, ANDREA LUCIAΝΑ", "VILLAFUERTE CONCHA, JOSEFINA MICAELA"] },
-        "P3FE": { n: "3ero FE", pref: "p3fe", canva: "https://www.canva.com/brand/join?token=jfT1abaAoSijYa3zyO6Cgg&brandingVariant=edu&invitationDestinationType=group", tema: "tema-fe", alumnas: ["ARAGON ZARATE, ALDANA DEL CARMEN", "ARCE JIMENEZ, LESLIE DARIELLE", "BEJAR VELARDE, ANTONELLA MIKAELA", "BONNETT SALAZAR, ISABELLA MIRKALA", "CASTILLO ROJAS, DAFNE ARIANA", "CASTRO VALDIVIA, AMAIA ALEXANDRA", "CCANTO POLANCO, LILIA ZAHIRA", "CHAVEZ VARGAS, ISABELA CHRISTINE", "COAYLA SALAS, LUANNA KAESSY", "CRUZ OJEDA, LUZ VALENΤΙΝΑ", "DURAND CHALLCO, LUCIANA CAMILA", "FLORES ZAMALLOA, ELIZABETH CATALINA", "HANCCO AYMA, MARLIB ALEXANDRA", "HUAMAN VELASQUEZ, MARCELA IVANNA", "LLANO MAMANI, MICAELA BELEN", "LUNA ROJAS, CARLY ADARA", "MARQUEZ ESCALANTE, LUCIANA FATIMA", "MATUTTI CAMPANA, VALERIA ADRIANA", "MONZON REA, THAIS LILIANA", "NUÑEZ SAENZ, ADRIANA", "OBLITAS PEREZ, EMILIA ELIZABETH", "OLAVE LAZO, ATHENA LUCIA", "PALOMINO CACERES, LUCIANA SOPHIA", "PUERTAS BLANCO, LUCIANA CAROLINA", "QUISPE ARAGON, ANGELICA VALENTINA", "RIVERA CHILE, GAELA NICOLLE", "SAMATA CANDIA, ARLEV ANTONELLA", "SANCHEZ VALERO, KATALEYA LEONELA", "SANTANDER RODRIGUEZ, MARIA GUADALUPE", "SOTOMAYOR CALSINA, MÍA ARIANA", "VALENCIA SALLUCA, GAETANA DEL CARMEN", "VIGÑATY ORTIZ, GEORGIA CONCEPCION", "ZAMALLOA QUISPE, ALEJANDRA VALENTINA", "ZEGARRA PAREDES, LUCÍA MICAELA"] },
-        "P3ES": { n: "3ero ESPERANZA", pref: "p3es", canva: "https://www.canva.com/brand/join?token=vOFNbyLeETZ-03b9UltSYQ&brandingVariant=edu&invitationDestinationType=group", tema: "tema-es", alumnas: ["ALVAREZ CHIRINOS, DANAE LUANNA", "ARAGON GRAJEDA, LUANA MICAELA", "AYALA AMANCA, MARETH IVANNA", "BEJAR MEJIA, CATALINA", "CABALLERO VALDIVIA, KAMILA FERNANDA", "CARRILLO ZARATE, MICAELA VALENTINA", "CCAHUANA CANDIA, KENDRA JHORDANA", "DAVALOS BULEJE, LUCIA ANTONELLA", "ESQUIVEL DIAZ, CARLA TESSA", "GUILLEN MEDINA, YAIZA VALENTINA", "JIMENEZ GARCIA, GIANELLA LUCIANA", "LEZAMA VEGA CENTENO, MARIANNA", "LOPEZ QUIÑONES, MARIA GRACIA", "LOZANO APARICIO, ARIANA LUCIA", "MEDINA LASTEROS, MARRYETA GINEBRA", "MENDIGURI COAQUIRA, ANIKA KAELI", "MERMA GUZMAN, LUCIANA CAMILLE", "MIRANDA TORRES, SOPHIE RAFAELA", "OJEDA CHACHAYMA, LUCIANA VALERIA", "OLIVERA CARBAJAL, LUCIANA ALESSANDRA", "PEREZ APARICIO, ALBA REΝΑΤΑ", "PINARES BOHORQUEZ, FABΙΑΝΑ", "QUISPE MENDOZA, STEPHANIE VALERIA", "QUISPE TAIPE, LEONOR ANDREA", "ROZAS MAYORGA, CHESNA AYSEL DANAΙ", "RUIZ RIVAS, MAIA CATALINA", "SCOTT PEÑA, ATHENA ITZAYANA", "SILVERA URDAY, GAHELA FERNANDA", "SOTO MONZON, SOFÍA ANTONELLA", "SUAQUITA CASAFRANCA, MIA GABRIELA", "TAPIA ZARATE, ALESSANDRA", "TUPA REVOLLAR, GIA LUANA", "VARGAS TTITO, MICAELA VALERIA", "YEPEZ ARIAS, LUANA CAYETANA", "YOUSSI ROJAS, ZOE CHELSIE", "ZARATE VENGOA, MARIA FERNANDA"] }
+        "P1FE": { 
+            n: "1ero FE", pref: "p1fe", 
+            canva: "https://www.canva.com/brand/join?token=Dm9LDtePsVQRFhkqm7U8sQ&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-fe", 
+            alumnas: [
+                {n: "ALVAREZ CHISE, Scarlett Anthonela", u: "A91274031", p: "RWYKIVSL"},
+                {n: "ANCHARI DELGADO, Adhara Aitana", u: "A20230108", p: "4717405B"},
+                {n: "ARAUJO HUACAC, Antonella", u: "A20250010", p: "967629B6"},
+                {n: "ARIAS OCAMPO, Marjorie Gianella", u: "A91320457", p: "5BFA2BB5"},
+                {n: "ATAUSUPA CHANCA, Alondra Yociri", u: "A91483498", p: "AD3C3461"},
+                {n: "BELLIDO FERNANDEZ, Arianna Sofia", u: "A91309455", p: "9BED63A0"},
+                {n: "CACERES CENTENO, Valentina Verónica", u: "A91555503", p: "4333969B"},
+                {n: "CANDIA GUZMAN, Rafaela Thais", u: "A20240076", p: "7CB8D5C5"},
+                {n: "CCACYAHUILLCA CÁCERES, SAMI ALHELÍ", u: "A20240084", p: "5E3CA3D1"},
+                {n: "CRUZ OJEDA, Alessia Isabela", u: "A91266205", p: "F6A68D5D"},
+                {n: "CUENTAS QUISPE, Almendra Kamel", u: "A91319762", p: "54226C33"},
+                {n: "DELGADO PARO, Alejandra Ivana", u: "A20240114", p: "74B4670D"},
+                {n: "FERNÁNDEZ BACA PAREJA, Micaela Constanza", u: "A91316514", p: "174987E1"},
+                {n: "FLORES CCOPA, Fatima Valeria", u: "A91309531", p: "0CC817C6"},
+                {n: "GAMARRA REGAÑO, Sophie Angeline", u: "A20240134", p: "916D666E"},
+                {n: "GERVASI RODRIGUEZ, Alejandra Micaela", u: "A20250019", p: "A4C98308"},
+                {n: "HERMOZA REYNOSO, Brianna Antonella", u: "A91336142", p: "6D29D995"},
+                {n: "HUARAYA CASTAÑEDA, Dayra", u: "A20240165", p: "70C6D378"},
+                {n: "LOAIZA QUISPE, Rafaella Victoria", u: "A20250027", p: "43265DCC"},
+                {n: "MONTES MEJIA, Nayeth Galena", u: "A91334465", p: "0620EBB6"},
+                {n: "NUÑEZ SAENZ, Sofia", u: "A20250028", p: "DCC0B64F"},
+                {n: "NUÑEZ VALERIANO, Georgina Fabiana", u: "A20250029", p: "67C6DBA7"},
+                {n: "OBLITAS MIRANDA, Camila Luana", u: "A91340173", p: "7B907CA8"},
+                {n: "OBLITAS PALOMINO, Alanna Isabella", u: "A20240212", p: "3C8F27BC"},
+                {n: "PALMA GUTIERREZ, Amanda Sylvana", u: "A20250030", p: "6CE38BB2"},
+                {n: "PINTO PONCE DE LEON, Valentina", u: "A20250032", p: "60F8017B"},
+                {n: "QUISPE CARDENAS, Zoe Alejandra", u: "A20250034", p: "5D8F7B0D"},
+                {n: "SALAS JARA, Isabella Aria", u: "A91321741", p: "16C0D98E"},
+                {n: "SORIA FERRO, Isabella", u: "A20240283", p: "DE96DBA0"},
+                {n: "SUAQUITA DEL CARPIO, Daniela Alessandra", u: "A91334547", p: "5E05F656"},
+                {n: "VALDIVIA PINARES, Luciana Carolina", u: "A20240291", p: "931D74E3"},
+                {n: "VIGNATTI LOAIZA, Ana Belèn", u: "A20250036", p: "CEB7CCB6"},
+                {n: "VILLAVICENCIO HURTADO, Jade Jazmín", u: "A91289139", p: "46E6BBA3"},
+                {n: "YUPANQUI URBINA, Daniela", u: "A20250038", p: "5BA780B6"}
+            ] 
+        },
+        "P1ES": { 
+            n: "1ero ESPERANZA", pref: "p1es", 
+            canva: "https://www.canva.com/brand/join?token=OfygR2er5-2Sl1z-k4AFnQ&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-es", 
+            alumnas: [
+                {n: "ACUÑA TORRES, Rafaella Mickela", u: "A20240032", p: "C9776A96"},
+                {n: "ANCORI SILVA, Oriana Catalina", u: "A20240035", p: "D736A780"},
+                {n: "ARAGON GRAJEDA, Lia Padme", u: "A20240036", p: "E91E007B"},
+                {n: "BAZALAR HUAMAN, Sofia Valentina", u: "A20240061", p: "10B8D98C"},
+                {n: "CABALLERO COAYLA, Alessandra Avril", u: "A20240071", p: "CB7C6C63"},
+                {n: "CALATAYUD CORNEJO, Mhia Raphaella", u: "A20240073", p: "5C2070D9"},
+                {n: "CAMPANA BAUTISTA, Amelia Antonia", u: "A91319760", p: "468F6B7E"},
+                {n: "CAPCHA BALLON, Gaela Fernanda", u: "A20240077", p: "677695B3"},
+                {n: "CASAPINO BENAVENTE, Antonia Leticia", u: "A20240081", p: "7D937B69"},
+                {n: "CHOQUEHUANCA HUAMAN, Micaela Nieves", u: "A20240089", p: "F6068F90"},
+                {n: "CONDORI REJAS, Ximena Geraldine", u: "A20240097", p: "A4B7D600"},
+                {n: "CONZA MIRANDA, Valentina Itza", u: "A20240098", p: "979C3B93"},
+                {n: "CORTEZ SALAZAR, Jeiza Sahori", u: "A91295321", p: "06B78BC0"},
+                {n: "CRUZ CABALLERO, Emilia", u: "A20240103", p: "4376D98C"},
+                {n: "ESCOBAR TELLO, Emilia Luana", u: "A20240117", p: "30D6D0CC"},
+                {n: "FARFAN CASTILLA, Katherine Sofia Alessandra", u: "A91316513", p: "9C30307B"},
+                {n: "FERRO SALAS, Sophia Valentina", u: "A20240124", p: "16C0D98E"},
+                {n: "FIGUEROA VELASCO, Mia Anthonella", u: "A20240125", p: "0C8E1BC0"},
+                {n: "FLOREZ BEGAZO, Stephanie Jimena", u: "A20240127", p: "7B23E07B"},
+                {n: "GONZALES CUBA, Micaela Alessandra", u: "A20240146", p: "4D6C60F6"},
+                {n: "GOVEA CUBA, Emilia Catalina", u: "A20240148", p: "3B1C27B6"},
+                {n: "GUTIERREZ TACO, Kyra Eileen", u: "A20240156", p: "D3BCC6CC"},
+                {n: "LOVATON MONTOYA, Cayetana Isabella", u: "A20240182", p: "A6C0D37B"},
+                {n: "LOZANO ZAMBRANO, Isis Francesca", u: "A91264421", p: "C4B4E3A0"},
+                {n: "MAYORGA QUISPE, Alessia Sara", u: "A20240191", p: "F4A786A0"},
+                {n: "MESCCO SONCCO, Ariana Itzel", u: "A20240195", p: "E430D98C"},
+                {n: "NOBLEGA CONDOR, Camila Massiel", u: "A20240209", p: "D0C07CA8"},
+                {n: "PUENTE DE LA VEGA CARREÑO, Ivana Gabriela", u: "A20240233", p: "0306E66E"},
+                {n: "QUINTANA NUÑEZ DE LA TORRE, Lucia Ivette", u: "A20240237", p: "4C03B7C6"},
+                {n: "QUISPE BEJAR, Dayana Rosa Laura", u: "A20240243", p: "56C08F90"},
+                {n: "SILVESTRE VILLALBA, Vania Anghely", u: "A91283623", p: "447B95C0"},
+                {n: "SOTA ESTRADA, Alessia", u: "A20240284", p: "7BA7D3B2"},
+                {n: "SOTO AUCCAHUAQUI, Luana Valeria", u: "A20240285", p: "46B78BC0"},
+                {n: "VILCA GUTIERREZ, Andrea Khaleesi", u: "A20240301", p: "B9B763A0"},
+                {n: "VILLACORTA QUISPE, Everly Giulia Zoe", u: "A20240305", p: "0CC8D9B6"}
+            ]
+        },
+        "P2FE": { 
+            n: "2do FE", pref: "p2fe", 
+            canva: "https://www.canva.com/brand/join?token=Kl1_TQY4ZLqggqwvOgX7Kg&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-fe", 
+            alumnas: [
+                {n: "ALVAREZ ZAMALLOA, Alessia Aitana", u: "A20230043", p: "CB1C2BCC"},
+                {n: "BANDA HUAYPAR, Victoria Amelia", u: "A20230055", p: "1794717C"},
+                {n: "BERRIO PRIETO, Lucia Valeria", u: "A20230062", p: "07903BC0"},
+                {n: "BOLIVAR PANTOJA, Laura Marcela", u: "A20230065", p: "43265DCC"},
+                {n: "BUSTAMANTE QUINTE, Angie Massiel", u: "A20230067", p: "6D29D995"},
+                {n: "CARPIO CARPIO, Sofia Valentina", u: "A20230079", p: "16C0D98E"},
+                {n: "CHAVEZ CORTEZ, Anghely Rosanna", u: "A20230084", p: "F6A68D5D"},
+                {n: "CONTRERAS BUSTINZA, Marzhia Valentina", u: "A20230095", p: "4376D98C"},
+                {n: "DUEÑAS QUINTANILLA, Zoe Fernanda", u: "A20230113", p: "6BCC3B93"},
+                {n: "FERNÁNDEZ BACA PAREJA, Giulia Victoria", u: "A20230119", p: "0306E66E"},
+                {n: "FIGUEROA ALMANZA, Leyra Lucía", u: "A20230122", p: "C4B4E3A0"},
+                {n: "GALLEGOS CUSIHUALLPA, Aitana Khaleesi", u: "A20230131", p: "54226C33"},
+                {n: "GUILLEN MOYA, Isabella Blanca", u: "A20230150", p: "06B78BC0"},
+                {n: "GUILLEN PALOMARES, Flavia Rafaela", u: "A20230151", p: "4B1740C3"},
+                {n: "HUILLCA CAPCHA, Bryanna Yanira", u: "A20230163", p: "F6068F90"},
+                {n: "JORDAN ALENCASTRE, Catalina Magdiel", u: "A20230166", p: "70C6D378"},
+                {n: "JORDAN PUMA, Rafaela", u: "A20230167", p: "174987E1"},
+                {n: "LUZA ASCUE, Gracia Paz", u: "A20230177", p: "A4B7D600"},
+                {n: "MOLINA DUEÑAS, Gaia Valeska", u: "A20230198", p: "DE96DBA0"},
+                {n: "MORON ARAGON, Luisa Catalina", u: "A20230202", p: "CEB7CCB6"},
+                {n: "MUJICA GRANADA, Vania Valentina", u: "A20230205", p: "67C6DBA7"},
+                {n: "OJEDA VARGAS, Cathaleya Alexia", u: "A20230215", p: "3B1C27B6"},
+                {n: "ORTIZ GARCIA, Areli", u: "A20230219", p: "4D6C60F6"},
+                {n: "PALIZA ORTIZ DE ORUE, Jhoselim Valentina", u: "A20230225", p: "10B8D98C"},
+                {n: "PEREZ VALDERRAMA, Lia Luciana", u: "A20230234", p: "5BA780B6"},
+                {n: "QUIÑONES VARGAS, Antonela", u: "A20230240", p: "D0C07CA8"},
+                {n: "ROMERO MALDONADO, Camila Valentina", u: "A20230263", p: "E430D98C"},
+                {n: "RUELAS CCAHUA, Carmen Isabella", u: "A20230265", p: "C9776A96"},
+                {n: "SANCHEZ PACHECO, Ana Lucía", u: "A20230272", p: "74B4670D"},
+                {n: "SOTTEC SUTTA, Camila Alessandra", u: "A20230282", p: "DCC0B64F"},
+                {n: "TORRES MERMA, Mayte Catalina", u: "A20230285", p: "A6C0D37B"},
+                {n: "VARGAS OBLITAS, Mía Rafaela", u: "A20230294", p: "447B95C0"},
+                {n: "VARGAS VARGAS, Luciana Micaela", u: "A20230296", p: "5D8F7B0D"}
+            ] 
+        },
+        "P2ES": { 
+            n: "2do ESPERANZA", pref: "p2es", 
+            canva: "https://www.canva.com/brand/join?token=2zjKNkpEL2BvxKBsYPVzqA&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-es", 
+            alumnas: [
+                {n: "ACUÑA ROZAS, Zhoe Mikaela", u: "A20230040", p: "E91E007B"},
+                {n: "ALVARADO GOMEZ, Micaela Luciana", u: "A20230042", p: "468F6B7E"},
+                {n: "ASTETE RODRIGUEZ, Milagros Antonella", u: "A20230052", p: "D736A780"},
+                {n: "ATAYUPANQUI COLOMA, Luana", u: "A20230053", p: "0CC817C6"},
+                {n: "BENAVIDES VALERO, Sophie Catalina", u: "A20230060", p: "RWYKIVSL"},
+                {n: "BERRIO CONTRERAS, Maria Alejandra", u: "A20230061", p: "56C08F90"},
+                {n: "CABRERA DELGADO, Flavia Antonella", u: "A20230069", p: "7B907CA8"},
+                {n: "CARRILLO BAZALAR, Paris Alejandra", u: "A20230080", p: "4C03B7C6"},
+                {n: "CCONOCHUILCA ANCHARI, Almendra Khaleesy", u: "A20230083", p: "0CC8D9B6"},
+                {n: "ESPINOZA VILCHEZ, Nadezda Emilia", u: "A20230118", p: "3C8F27BC"},
+                {n: "FARFÁN BACA, Alexia Guadalupe", u: "A20230121", p: "9BED63A0"},
+                {n: "FUENTES LOPEZ, Zoe Alessandra", u: "A20230128", p: "677695B3"},
+                {n: "GAMARRA REGAÑO, Alessia Johana", u: "A20230133", p: "F4A786A0"},
+                {n: "GAMEZ PASTOR, Mariavictoria", u: "A20230135", p: "916D666E"},
+                {n: "GUTIERREZ PILARES, Sophie Luciana", u: "A20230155", p: "D3BCC6CC"},
+                {n: "LUNA ROJAS, Flor Valentina", u: "A20230174", p: "7B23E07B"},
+                {n: "MEZA JARA, Camila Antonella", u: "A20230193", p: "30D6D0CC"},
+                {n: "MEZA QUISPITUPA, Maria Fernanda", u: "A20230194", p: "5E3CA3D1"},
+                {n: "MORENO DURAND, Adriana Camila", u: "A20230201", p: "7CB8D5C5"},
+                {n: "OCHOA FARFAN, Gia Libertad", u: "A20230214", p: "9C30307B"},
+                {n: "OLIVERA MIRANDA, Danna Domeνικα", u: "A20230217", p: "0C8E1BC0"},
+                {n: "PALACIO HERMOZA, Luciana del Carmen", u: "A20230222", p: "A4C98308"},
+                {n: "PEÑA TINCO, Maziel Alessandra", u: "A20230236", p: "60F8017B"},
+                {n: "PUELLES ROJAS, Rosa Emilia", u: "A20230238", p: "4333969B"},
+                {n: "QUISPE MAYTA, Paula Adriana", u: "A20230247", p: "1794717C"},
+                {n: "QUISPE URQUIZO, Bryanna Khaleesy", u: "A20230250", p: "B9B763A0"},
+                {n: "ROZAS OCHOA, Ariana Isabella", u: "A20230264", p: "5E05F656"},
+                {n: "SALAZAR PAULLO, Allison Aitana", u: "A20230266", p: "931D74E3"},
+                {n: "SUMAR SALAS, Salma", u: "A20230283", p: "7D937B69"},
+                {n: "TAPIA QUISPE, Mia Sofia Marcela", u: "A20230284", p: "0620EBB6"},
+                {n: "TUPAYACHI PEÑA, Cayetaνα", u: "A20230286", p: "46B78BC0"},
+                {n: "VICTORIA ESPINOZA, Andrea Luciaνα", u: "A20230299", p: "5BA780B6"},
+                {n: "VILLAFUERTE CONCHA, Josefina Micaela", u: "A20230303", p: "0CC8D9B6"}
+            ]
+        },
+        "P3FE": { 
+            n: "3ero FE", pref: "p3fe", 
+            canva: "https://www.canva.com/brand/join?token=jfT1abaAoSijYa3zyO6Cgg&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-fe", 
+            alumnas: [
+                {n: "ARAGON ZARATE, Aldana del Carmen", u: "A20220042", p: "4D6C60F6"},
+                {n: "ARCE JIMENEZ, Leslie Darielle", u: "A20220046", p: "F6A68D5D"},
+                {n: "BEJAR VELARDE, Antonella Mikaela", u: "A20220059", p: "4376D98C"},
+                {n: "BONNETT SALAZAR, Isabella Mirkala", u: "A20220063", p: "C4B4E3A0"},
+                {n: "CASTILLO ROJAS, Dafne Ariana", u: "A20220076", p: "67C6DBA7"},
+                {n: "CASTRO VALDIVIA, Amaia Alexandra", u: "A20220078", p: "0CC8D9B6"},
+                {n: "CCANTO POLANCO, Lilia Zahira", u: "A20220079", p: "7B907CA8"},
+                {n: "CHAVEZ VARGAS, Isabela Christine", u: "A20220083", p: "4C03B7C6"},
+                {n: "COAYLA SALAS, Luanna Kaessy", u: "A20220090", p: "0CC817C6"},
+                {n: "CRUZ OJEDA, Luz Valenτina", u: "A20220101", p: "RWYKIVSL"},
+                {n: "DURAND CHALLCO, Luciana Camila", u: "A20220112", p: "468F6B7E"},
+                {n: "FLORES ZAMALLOA, Elizabeth Catalina", u: "A20220124", p: "D736A780"},
+                {n: "HANCCO AYMA, Marlib Alexandra", u: "A20220140", p: "DCC0B64F"},
+                {n: "HUAMAN VELASQUEZ, Marcela Ivanna", u: "A20220146", p: "174987E1"},
+                {n: "LLANO MAMANI, Micaela Belen", u: "A20220165", p: "A4B7D600"},
+                {n: "LUNA ROJAS, Carly Adara", u: "A20220173", p: "7B23E07B"},
+                {n: "MARQUEZ ESCALANTE, Luciana Fatima", u: "A20220182", p: "30D6D0CC"},
+                {n: "MATUTTI CAMPANA, Valeria Adriana", u: "A20220188", p: "5E3CA3D1"},
+                {n: "MONZON REA, Thais Liliana", u: "A20220199", p: "7CB8D5C5"},
+                {n: "NUÑEZ SAENZ, Adriana", u: "A20220211", p: "9C30307B"},
+                {n: "OBLITAS PEREZ, Emilia Elizabeth", u: "A20220213", p: "0C8E1BC0"},
+                {n: "OLAVE LAZO, Athena Lucia", u: "A20220216", p: "A4C98308"},
+                {n: "PALOMINO CACERES, Luciana Sophia", u: "A20220224", p: "60F8017B"},
+                {n: "PUERTAS BLANCO, Luciana Carolina", u: "A20220239", p: "4333969B"},
+                {n: "QUISPE ARAGON, Angelica Valentina", u: "A20220241", p: "1794717C"},
+                {n: "RIVERA CHILE, Gaela Nicolle", u: "A20220261", p: "B9B763A0"},
+                {n: "SAMATA CANDIA, Arlev Antonella", u: "A20220269", p: "5E05F656"},
+                {n: "SANCHEZ VALERO, Kataleya Leonela", u: "A20220272", p: "931D74E3"},
+                {n: "SANTANDER RODRIGUEZ, Maria Guadalupe", u: "A20220274", p: "7D937B69"},
+                {n: "SOTOMAYOR CALSINA, Mía Ariana", u: "A20220281", p: "0620EBB6"},
+                {n: "VALENCIA SALLUCA, Gaetana del Carmen", u: "A20220293", p: "46B78BC0"},
+                {n: "VIGÑATY ORTIZ, Georgia Concepcion", u: "A20220300", p: "5BA780B6"},
+                {n: "ZAMALLOA QUISPE, Alejandra Valentina", u: "A20220306", p: "E91E007B"},
+                {n: "ZEGARRA PAREDES, Lucía Micaela", u: "A20220307", p: "10B8D98C"}
+            ] 
+        },
+        "P3ES": { 
+            n: "3ero ESPERANZA", pref: "p3es", 
+            canva: "https://www.canva.com/brand/join?token=vOFNbyLeETZ-03b9UltSYQ&brandingVariant=edu&invitationDestinationType=group", 
+            tema: "tema-es", 
+            alumnas: [
+                {n: "ALVAREZ CHIRINOS, Danae Luanna", u: "A20220033", p: "3B1C27B6"},
+                {n: "ARAGON GRAJEDA, Luana Micaela", u: "A20220041", p: "10B8D98C"},
+                {n: "AYALA AMANCA, Mareth Ivanna", u: "A20220054", p: "DE96DBA0"},
+                {n: "BEJAR MEJIA, Catalina", u: "A20220058", p: "CEB7CCB6"},
+                {n: "CABALLERO VALDIVIA, Kamila Fernanda", u: "A20220067", p: "67C6DBA7"},
+                {n: "CARRILLO ZARATE, Micaela Valentina", u: "A20220074", p: "3B1C27B6"},
+                {n: "CCAHUANA CANDIA, Kendra Jhordana", u: "A20220081", p: "4D6C60F6"},
+                {n: "DAVALOS BULEJE, Lucia Antonella", u: "A20220105", p: "10B8D98C"},
+                {n: "ESQUIVEL DIAZ, Carla Tessa", u: "A20220119", p: "5BA780B6"},
+                {n: "GUILLEN MEDINA, Yaiza Valentina", u: "A20220141", p: "D0C07CA8"},
+                {n: "JIMENEZ GARCIA, Gianella Luciana", u: "A20220155", p: "E430D98C"},
+                {n: "LEZAMA VEGA CENTENO, Marianna", u: "A20220163", p: "C9776A96"},
+                {n: "LOPEZ QUIÑONES, Maria Gracia", u: "A20220169", p: "74B4670D"},
+                {n: "LOZANO APARICIO, Ariana Lucia", u: "A20220171", p: "DCC0B64F"},
+                {n: "MEDINA LASTEROS, Marryeta Ginebra", u: "A20220191", p: "A6C0D37B"},
+                {n: "MENDIGURI COAQUIRA, Anika Kaeli", u: "A20220193", p: "447B95C0"},
+                {n: "MERMA GUZMAN, Luciana Camille", u: "A20220195", p: "5D8F7B0D"},
+                {n: "MIRANDA TORRES, Sophie Rafaela", u: "A20220197", p: "E91E007B"},
+                {n: "OJEDA CHACHAYMA, Luciana Valeria", u: "A20220215", p: "468F6B7E"},
+                {n: "OLIVERA CARBAJAL, Luciana Alessandra", u: "A20220217", p: "D736A780"},
+                {n: "PEREZ APARICIO, Alba Renaτα", u: "A20220233", p: "0CC817C6"},
+                {n: "PINARES BOHORQUEZ, Fabiaηa", u: "A20220235", p: "RWYKIVSL"},
+                {n: "QUISPE MENDOZA, Stephanie Valeria", u: "A20220251", p: "56C08F90"},
+                {n: "QUISPE TAIPE, Leonor Andrea", u: "A20220253", p: "7B907CA8"},
+                {n: "ROZAS MAYORGA, Chesna Aysel Danaí", u: "A20220265", p: "4C03B7C6"},
+                {n: "RUIZ RIVAS, Maia Catalina", u: "A20220267", p: "0CC8D9B6"},
+                {n: "SCOTT PEÑA, Athena Itzayana", u: "A20220277", p: "3C8F27BC"},
+                {n: "SILVERA URDAY, Gahela Fernanda", u: "A20220279", p: "9BED63A0"},
+                {n: "SOTO MONZON, Sofía Antonella", u: "A20220286", p: "677695B3"},
+                {n: "SUAQUITA CASAFRANCA, Mia Gabriela", u: "A20220288", p: "F4A786A0"},
+                {n: "TAPIA ZARATE, Alessandra", u: "A20220290", p: "916D666E"},
+                {n: "TUPA REVOLLAR, Gia Luana", u: "A20220292", p: "D3BCC6CC"},
+                {n: "VARGAS TTITO, Micaela Valeria", u: "A20220297", p: "7B23E07B"},
+                {n: "YEPEZ ARIAS, Luana Cayetana", u: "A20220302", p: "30D6D0CC"},
+                {n: "YOUSSI ROJAS, Zoe Chelsie", u: "A20220304", p: "5E3CA3D1"},
+                {n: "ZARATE VENGOA, Maria Fernanda", u: "A20220305", p: "7CB8D5C5"}
+            ]
+        }
     };
 
     function actualizarLista() {
@@ -74,47 +317,37 @@
         const div = document.getElementById('divNombres');
         const lista = document.getElementById('listaNombres');
         const card = document.getElementById('step1');
-
         if (val) {
             div.classList.remove('hidden');
-            lista.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
-            db[val].alumnas.forEach((nombre, index) => {
+            lista.innerHTML = '<option value="">-- Busca tu nombre --</option>';
+            db[val].alumnas.forEach((est, index) => {
                 let opt = document.createElement('option');
-                opt.value = (index + 1).toString().padStart(2, '0');
-                opt.innerText = nombre;
+                opt.value = index;
+                opt.innerText = est.n;
                 lista.appendChild(opt);
             });
             card.className = "card " + db[val].tema;
-        } else {
-            div.classList.add('hidden');
-            card.className = "card";
         }
     }
 
     function entrar() {
         const seccion = document.getElementById('selectSeccion').value;
-        const indexEstudiante = document.getElementById('listaNombres').value;
-        const nCompleto = document.getElementById('listaNombres').options[document.getElementById('listaNombres').selectedIndex].text;
-
-        if (!indexEstudiante) return alert("Por favor, selecciona tu nombre.");
-
-        const soloNombre = nCompleto.split(',')[1].trim().split(' ')[0];
-        const correo = db[seccion].pref + indexEstudiante + "@staana.edu.pe";
-
+        const idx = document.getElementById('listaNombres').value;
+        if (idx === "") return;
+        const est = db[seccion].alumnas[idx];
+        const numEst = (parseInt(idx) + 1).toString().padStart(2, '0');
         document.getElementById('step1').classList.add('hidden');
-        const s2 = document.getElementById('step2');
-        s2.classList.remove('hidden');
-        s2.classList.add(db[seccion].tema);
-
-        document.getElementById('saludo').innerText = "¡Hola, " + soloNombre + "! ✨";
-        document.getElementById('txtCorreo').innerHTML = "Tu correo de hoy es:<br><b>" + correo + "</b>";
+        document.getElementById('step2').classList.remove('hidden');
+        document.getElementById('step2').className = "card " + db[seccion].tema;
+        document.getElementById('saludo').innerText = "¡Hola, " + est.n.split(',')[1].trim().split(' ')[0] + "! ✨";
+        document.getElementById('txtCorreo').innerText = db[seccion].pref + numEst + "@staana.edu.pe";
+        document.getElementById('txtUserSie').innerText = est.u;
+        document.getElementById('txtPassSie').innerText = est.p;
     }
 
     function irACanva() {
-        const seccion = document.getElementById('selectSeccion').value;
-        window.open(db[seccion].canva, '_blank');
+        window.open(db[document.getElementById('selectSeccion').value].canva, '_blank');
     }
 </script>
-
 </body>
 </html>
